@@ -1,0 +1,26 @@
+
+/* RH!NOIFY - Rose Night */
+
+:root {
+    --rhino-rose: #e58ab5;
+    --rhino-pink: #f3a6cb;
+    --rhino-background: #100b12;
+    --rhino-card: #211421;
+}
+
+body {
+    background-color: var(--rhino-background) !important;
+}
+
+button,
+.main-addButton-button {
+    border-radius: 8px !important;
+}
+
+button:hover {
+    filter: brightness(1.15);
+}
+
+.main-card-card {
+    border-radius: 12px !important;
+}
