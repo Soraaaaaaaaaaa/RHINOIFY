@@ -1,64 +1,51 @@
 # RH!NOIFY
 
-A Windows desktop customization manager for Spotify, using the Spicetify CLI.
+**A PowerShell-based Spotify customization platform with its own community marketplace.**
 
-## Version 0.3.0
+RH!NOIFY aims to make Spotify customization easier through a unified command-line interface, themes, extensions, plugins, and community-created content.
 
-- Electron desktop app with a black/red interface
-- Spotify and Spicetify detection
-- Backup, apply, restore, and CLI update actions
-- Live theme catalog sourced from `spicetify/spicetify-themes`
-- Search, installed/available filters, theme installation, and apply
-- Theme ZIP extraction checks required files and blocks archive path traversal
-- Extension manager: install a local `.js` file, view installed extensions, enable/disable, and apply
-- Custom app manager: install a folder containing `index.js` and `manifest.json`, enable/disable, and apply
-- Uses Spicetify CLI-reported extension/custom-app paths, with standard Windows fallback paths
-- GitHub Actions workflow builds and publishes a Windows installer
+## Features
+
+- PowerShell command-line interface
+- Spicetify integration
+- Theme and extension marketplace
+- System diagnostics
+- Backup and restore tools
+- Configuration and profile management
 
 ## Requirements
 
-- Windows 10/11
-- Node.js 20+ for development
-- Spotify desktop app
-- Spicetify CLI installed and configured
+- Windows 10 or Windows 11
+- Windows PowerShell 5.1 or PowerShell 7
+- Git
+- Spotify
+- Spicetify CLI
 
-## Run
+## Getting Started
 
-```powershell
-npm install
-npm start
-```
-
-## Build
+Clone the repository:
 
 ```powershell
-npm run dist
+git clone https://github.com/Soraaaaaaaaaaa/RHINOIFY.git
+cd RHINOIFY
 ```
 
-Output: `dist/RHINOIFY-Setup.exe`.
-
-## Publish installer
-
-1. Create a public GitHub repository named `RHINOIFY`.
-2. Upload this project.
-3. Set your GitHub username in `install.ps1`.
-4. Push the project and create a release tag:
+Run RH!NOIFY:
 
 ```powershell
-git tag v0.3.0
-git push origin v0.2.0
+.\rhino.ps1 help
 ```
 
-GitHub Actions builds and attaches the Windows installer to the release.
-
-After the release exists, users can run:
+Check your system:
 
 ```powershell
-iwr -useb https://raw.githubusercontent.com/YOUR_USERNAME/RHINOIFY/main/install.ps1 | iex
+.\rhino.ps1 doctor
 ```
 
-Replace `YOUR_USERNAME` with the actual repository owner.
+## Project Status
 
-## Notes
+RH!NOIFY is under active development. Features and marketplace functionality are being built progressively.
 
-RH!NOIFY is a third-party front end around Spicetify CLI, not an independent Spotify patching engine. Community themes can break after Spotify updates. Review community theme, extension, and custom-app source code before installing. Extensions and custom apps execute code inside Spotify. RH!NOIFY copies local extension `.js` files and custom-app folders; it does not currently host a remote extension marketplace. This source package has not yet been built or tested on Windows.
+## License
+
+License information will be added before public release.
