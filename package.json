@@ -1,0 +1,40 @@
+{
+  "name": "rhinoify",
+  "version": "0.3.0",
+  "description": "A desktop customization manager for Spotify powered by Spicetify CLI.",
+  "main": "src/main.js",
+  "author": "RH!NOIFY",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "com.rhinoify.desktop",
+    "productName": "RH!NOIFY",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "artifactName": "RHINOIFY-Setup.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16"
+  }
+}

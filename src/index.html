@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self';">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RH!NOIFY</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="mark">R!</span><div>RH!NOIFY<small>SPOTIFY CUSTOMIZER</small></div></div>
+    <nav>
+      <button class="nav active" data-page="home">◈ &nbsp; Overview</button>
+      <button class="nav" data-page="themes">▧ &nbsp; Themes <span class="nav-count" id="theme-count">—</span></button>
+      <button class="nav" data-page="extensions">⌘ &nbsp; Extensions</button>
+      <button class="nav" data-page="settings">⚙ &nbsp; Settings</button>
+    </nav>
+    <div class="sidebar-bottom"><span class="dot"></span> LOCAL DESKTOP APP <small>VERSION 0.2.0</small></div>
+  </aside>
+  <main>
+    <header><div><div class="eyebrow">YOUR SPOTIFY. YOUR RULES.</div><h1 id="page-title">Overview</h1></div><div class="status-pill"><span class="dot"></span> CONTROL CENTER</div></header>
+    <section id="home" class="page">
+      <div class="hero">
+        <div class="hero-copy"><div class="eyebrow red">MAKE SPOTIFY YOURS</div><h2>A different kind<br>of <span>listening.</span></h2>
+          <p>Customize the Spotify desktop experience with themes and extensions, all from one place.</p>
+          <button class="primary" id="refresh">CHECK YOUR SETUP <b>↗</b></button>
+        </div><div class="orb"><div class="orb-inner">R!</div></div>
+      </div>
+      <div class="section-head"><div><div class="eyebrow">SYSTEM CHECK</div><h3>Your setup</h3></div><span id="checked-at">NOT CHECKED</span></div>
+      <div class="cards">
+        <article class="panel"><div class="panel-top"><span>01 / PLAYER</span><span class="mini-icon">♫</span></div><h3>Spotify</h3><p id="spotify-state">Checking installation status…</p><div class="state" id="spotify-badge">WAITING</div></article>
+        <article class="panel"><div class="panel-top"><span>02 / ENGINE</span><span class="mini-icon">⌘</span></div><h3>Spicetify CLI</h3><p id="spicetify-state">Checking customization engine…</p><div class="state" id="spicetify-badge">WAITING</div></article>
+        <article class="panel action-panel"><div class="panel-top"><span>03 / ACTIONS</span><span class="mini-icon">⚡</span></div><h3>Quick actions</h3><div class="action-row"><button id="apply">BACKUP & APPLY</button><button id="restore">RESTORE</button></div><button class="text-button" id="update">Update Spicetify CLI →</button></article>
+      </div>
+      <div class="notice"><b>ENGINE NOTE</b><span>RH!NOIFY uses the Spicetify CLI to apply Spotify customizations. It does not bypass Spotify authentication or provide Spotify Premium features.</span></div>
+    </section>
+    <section id="themes" class="page hidden">
+      <div class="market-head">
+        <div><div class="eyebrow red">COMMUNITY COLLECTION</div><h2>Theme marketplace</h2><p>Browse community themes, install them locally, and apply them to Spotify.</p></div>
+        <button class="secondary" id="reload-themes">↻ REFRESH CATALOG</button>
+      </div>
+      <div class="market-toolbar"><input id="theme-search" type="search" placeholder="Search themes…" autocomplete="off"><div class="filter-tabs"><button class="filter active" data-filter="all">ALL</button><button class="filter" data-filter="installed">INSTALLED</button><button class="filter" data-filter="available">AVAILABLE</button></div></div>
+      <div class="catalog-status" id="catalog-status">Loading community themes…</div>
+      <div class="theme-grid" id="theme-grid"></div>
+      <div class="market-foot">Catalog source: <a href="#" id="source-link">Spicetify community themes</a>. Themes are community-maintained and may not work with every Spotify version.</div>
+    </section>
+    <section id="extensions" class="page hidden">
+      <div class="market-head"><div><div class="eyebrow red">SPICETIFY COMPONENTS</div><h2>Extensions & custom apps</h2><p>Install local component files and manage what Spicetify loads into Spotify.</p></div><button class="secondary" id="reload-components">↻ REFRESH</button></div>
+      <div class="component-section"><div class="component-heading"><div><div class="eyebrow">01 / EXTENSIONS</div><h3>Extensions</h3><p>JavaScript add-ons that modify or extend Spotify.</p></div><button class="primary compact" id="install-extension">+ INSTALL .JS</button></div><div id="extension-list" class="component-list"><div class="no-results">Loading extensions…</div></div></div>
+      <div class="component-section"><div class="component-heading"><div><div class="eyebrow">02 / CUSTOM APPS</div><h3>Custom apps</h3><p>Standalone pages that appear inside Spotify’s sidebar.</p></div><button class="primary compact" id="install-custom-app">+ INSTALL FOLDER</button></div><div id="custom-app-list" class="component-list"><div class="no-results">Loading custom apps…</div></div></div>
+      <div class="market-foot">Extensions and custom apps are third-party code. Only install files and folders from sources you trust.</div>
+    </section>
+    <section id="settings" class="page hidden"><div class="settings-card"><div class="eyebrow">APPLICATION</div><h2>RH!NOIFY settings</h2><p>Version 0.3.0 · Windows desktop</p><p class="muted">Theme installs are downloaded from the official Spicetify community themes repository and checked for the required theme files before installation.</p><button class="secondary" id="open-themes">OPEN LOCAL THEMES FOLDER</button></div></section>
+    <div id="log" class="log" role="status">Ready. Check your setup to get started.</div>
+  </main>
+  <script src="renderer.js"></script>
+</body>
+</html>
