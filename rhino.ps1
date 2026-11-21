@@ -1,12 +1,12 @@
 
 # ==========================================
 # RH!NOIFY - PowerShell CLI
-# Version 0.1.0
+# Version 0.2.0
 # ==========================================
 
 $ErrorActionPreference = "Stop"
 
-$script:RhinoVersion = "0.1.0"
+$script:RhinoVersion = "0.2.0"
 $script:Root = $PSScriptRoot
 
 function Show-Banner {
@@ -25,6 +25,9 @@ function Show-Help {
     Write-Host "  version       Show version"
     Write-Host "  doctor        Check system"
     Write-Host "  marketplace   Browse marketplace"
+    Write-Host "  install       Install a theme"
+    Write-Host "  uninstall     Uninstall a theme"
+    Write-Host "  installed     Show installed themes"
     Write-Host "  backup        Back up Spicetify"
     Write-Host "  update        Check for updates"
     Write-Host ""
@@ -34,11 +37,15 @@ function Show-Help {
     Write-Host "  marketplace apps"
     Write-Host "  marketplace search themes rose"
     Write-Host ""
+    Write-Host "INSTALLATION" -ForegroundColor Red
+    Write-Host "  .\rhino.ps1 install rose-night"
+    Write-Host "  .\rhino.ps1 uninstall rose-night"
+    Write-Host "  .\rhino.ps1 installed"
+    Write-Host ""
 }
 
 function Test-Command {
     param([string]$Name)
-
     return [bool](Get-Command $Name -ErrorAction SilentlyContinue)
 }
 
@@ -111,6 +118,45 @@ function Invoke-Backup {
     }
 }
 
+function Invoke-RhinoInstall {
+    param([string]$Id)
+
+    $marketplacePath = Join-Path $script:Root "modules\Marketplace.psm1"
+    $installerPath = Join-Path $script:Root "modules\Installer.psm1"
+
+    if (!(Test-Path $marketplacePath) -or !(Test-Path $installerPath)) {
+        throw "Marketplace or installer module is missing."
+    }
+
+    Import-Module $marketplacePath -Force -ErrorAction Stop
+    Import-Module $installerPath -Force -ErrorAction Stop
+
+    $items = @(Get-RhinoCatalog -Category "themes")
+    $match = $items | Where-Object { $_.id -eq $Id } | Select-Object -First 1
+
+    if (!$match) {
+        throw "Theme '$Id' was not found in the marketplace."
+    }
+
+    if (!$match.url) {
+        throw "Theme '$Id' does not have a download URL."
+    }
+
+    Install-RhinoTheme -Id $match.id -Name $match.name -Url $match.url
+}
+
+function Invoke-RhinoUninstall {
+    param([string]$Id)
+
+    $installerPath = Join-Path $script:Root "modules\Installer.psm1"
+
+    if (!(Test-Path $installerPath)) {
+        throw "Installer module is missing."
+    }
+
+    Import-Module $installerPath -Force -ErrorAction Stop
+    Uninstall-RhinoTheme -Id $Id
+}
 
 function Invoke-Rhino {
     param([string[]]$Arguments)
@@ -164,33 +210,20 @@ function Invoke-Rhino {
 
         "install" {
             if ($Arguments.Count -lt 2) {
-                Write-Host "Usage: .\rhino.ps1 install <package-id>" -ForegroundColor Yellow
+                Write-Host "Usage: .\rhino.ps1 install <theme-id>" -ForegroundColor Yellow
                 return
             }
 
-            Import-Module (Join-Path $script:Root "modules\Marketplace.psm1") -Force
-            Import-Module (Join-Path $script:Root "modules\Installer.psm1") -Force
-
-            $id = $Arguments[1]
-            $items = @(Get-RhinoCatalog -Category "themes")
-            $match = $items | Where-Object { $_.id -eq $id } | Select-Object -First 1
-
-            if (!$match) {
-                Write-Host "Theme '$id' was not found in the marketplace." -ForegroundColor Red
-                return
-            }
-
-            Add-RhinoInstalled -Id $match.id -Name $match.name -Category "themes"
+            Invoke-RhinoInstall -Id $Arguments[1]
         }
 
         "uninstall" {
             if ($Arguments.Count -lt 2) {
-                Write-Host "Usage: .\rhino.ps1 uninstall <package-id>" -ForegroundColor Yellow
+                Write-Host "Usage: .\rhino.ps1 uninstall <theme-id>" -ForegroundColor Yellow
                 return
             }
 
-            Import-Module (Join-Path $script:Root "modules\Installer.psm1") -Force
-            Remove-RhinoInstalled -Id $Arguments[1]
+            Invoke-RhinoUninstall -Id $Arguments[1]
         }
 
         "installed" {
@@ -213,4 +246,5 @@ function Invoke-Rhino {
         }
     }
 }
+
 Invoke-Rhino -Arguments $args
