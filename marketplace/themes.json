@@ -1,0 +1,30 @@
+
+[
+  {
+    "id": "midnight-red",
+    "name": "Midnight Red",
+    "description": "A dark Spotify theme with aggressive red accents.",
+    "author": "RH!NOIFY",
+    "category": "dark",
+    "url": "",
+    "version": "1.0.0"
+  },
+  {
+    "id": "rose-night",
+    "name": "Rose Night",
+    "description": "A dark theme with soft pink and rose accents.",
+    "author": "RH!NOIFY",
+    "category": "dark",
+    "url": "",
+    "version": "1.0.0"
+  },
+  {
+    "id": "void-black",
+    "name": "Void Black",
+    "description": "A minimal pure-black Spotify theme.",
+    "author": "RH!NOIFY",
+    "category": "minimal",
+    "url": "",
+    "version": "1.0.0"
+  }
+]
